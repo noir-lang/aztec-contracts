@@ -33,7 +33,7 @@ jobs:
         run: node extractFunctionAsNoirArtifact.js ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount.json entrypoint
 
       - name: bb gates
-        run: bb gates -b ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount-entrypoint.json
+        run: ~/.bb/bb gates -b ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount-entrypoint.json
 
       - name: Build Noir benchmark programs
         run: noir-inspector info ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount.json --json > ./scripts/output.json
