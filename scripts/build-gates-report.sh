@@ -7,7 +7,7 @@ set -euo pipefail
 # Emits to stdout a JSON array like:
 # [ { "name": "<package_name>", "unit": "acir_opcodes", "value": <count> }, ... ]
 
-INPUT_JSON=${1:-./output.json}
+INPUT_JSON=${1:-./scripts/output.json}
 
 if [[ ! -f "$INPUT_JSON" ]]; then
   echo "Input file not found: $INPUT_JSON" >&2
