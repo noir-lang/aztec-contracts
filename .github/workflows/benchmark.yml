@@ -26,7 +26,7 @@ jobs:
           sudo apt install libc++-dev
 
       - name: Build Noir benchmark programs
-        run: noir-inspector info --contract-fn entrypoint ../../contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount.json --json > ../../scripts/output.json
+        run: noir-inspector info --contract-fn entrypoint ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount.json --json > ./scripts/output.json
 
       - name: Generate gates report
         run: ./scripts/build-gates-report.sh
