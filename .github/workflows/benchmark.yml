@@ -47,7 +47,7 @@ jobs:
           gh-pages-branch: "gh-pages"
           benchmark-data-dir-path: "dev/bench"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: ${{ github.ref == 'refs/heads/main' }}
+          auto-push: true
           comment-always: ${{ contains( github.event.pull_request.labels.*.name, 'bench-show') }}
           comment-on-alert: true
           alert-threshold: "101%"
@@ -63,7 +63,7 @@ jobs:
           gh-pages-branch: "gh-pages"
           benchmark-data-dir-path: "dev/bench"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: ${{ github.ref == 'refs/heads/main' }}
+          auto-push: ${{ github.ref == 'refs/heads/master' }}
           comment-always: ${{ contains( github.event.pull_request.labels.*.name, 'bench-show') }}
           comment-on-alert: true
           alert-threshold: "101%"
