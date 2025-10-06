@@ -24,6 +24,11 @@ jobs:
           curl -L https://bbup.aztec.network | bash
           ~/.bb/bbup -nv 1.0.0-beta.7
           sudo apt install libc++-dev
+      
+      - name: compile artifacts
+        working-directory: ./contract-benchmarks/ecdsa_k_account_contract
+        run: nargo info
+
 
       - name: Build Noir benchmark programs
         run: noir-inspector info --contract-fn entrypoint ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount.json --json > ./scripts/output.json
