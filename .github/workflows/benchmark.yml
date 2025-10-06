@@ -43,7 +43,7 @@ jobs:
         with:
           name: "ACIR Opcodes"
           tool: "customSmallerIsBetter"
-          output-file-path: "benchmark-opcodes.json"
+          output-file-path: "opcodes.json"
           gh-pages-branch: "gh-pages"
           benchmark-data-dir-path: "dev/bench"
           github-token: ${{ secrets.GITHUB_TOKEN }}
