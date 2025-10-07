@@ -36,10 +36,10 @@ jobs:
         run: ~/.bb/bb gates -b ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount-entrypoint.json
 
       - name: Build Noir benchmark programs
-        run: noir-inspector info ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount.json --json > ./scripts/output.json
+        run: noir-inspector info ./contract-benchmarks/ecdsa_k_account_contract/target/ecdsa_k_account_contract-EcdsaKAccount.json --json > ./contract-benchmarks/noir_benchmarks/EcdsaKAccount.json
 
       - name: Generate gates report
-        run: ./scripts/build-gates-report.sh
+        run: ./scripts/build-opcodes-report.sh
         env:
           BACKEND: /home/runner/.bb/bb
 
@@ -48,7 +48,7 @@ jobs:
         with:
           name: "ACIR Opcodes"
           tool: "customSmallerIsBetter"
-          output-file-path: "opcodes.json"
+          output-file-path: "opcodes-report.json"
           gh-pages-branch: "gh-pages"
           benchmark-data-dir-path: "dev/bench"
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -64,11 +64,11 @@ jobs:
         with:
           name: "Circuit Size"
           tool: "customSmallerIsBetter"
-          output-file-path: "opcodes.json"
+          output-file-path: "gates-report.json"
           gh-pages-branch: "gh-pages"
           benchmark-data-dir-path: "dev/bench"
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: ${{ github.ref == 'refs/heads/master' }}
+          auto-push: true
           comment-always: ${{ contains( github.event.pull_request.labels.*.name, 'bench-show') }}
           comment-on-alert: true
           alert-threshold: "101%"
