@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1759845522622,
+  "lastUpdate": 1759850584966,
   "repoUrl": "https://github.com/noir-lang/aztec-contracts",
   "entries": {
     "ACIR Opcodes": [
@@ -421,6 +421,61 @@ window.BENCHMARK_DATA = {
         "date": 1759845521507,
         "tool": "customSmallerIsBetter",
         "benches": [
+          {
+            "name": "ecdsa_k_account_contract-constructor",
+            "value": 6343,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "ecdsa_k_account_contract-entrypoint",
+            "value": 4127,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "ecdsa_k_account_contract-verify_private_authwit",
+            "value": 2222,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "private_token_contract-constructor",
+            "value": 5798,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "private_token_contract-mint",
+            "value": 5727,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "private_token_contract-transfer",
+            "value": 21823,
+            "unit": "acir_opcodes"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "committer": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "id": "9b335508b3e57e190fdc2e426f7fa4a7a9902ce8",
+          "message": "benchmark",
+          "timestamp": "2025-10-06T09:03:04Z",
+          "url": "https://github.com/noir-lang/aztec-contracts/pull/1/commits/9b335508b3e57e190fdc2e426f7fa4a7a9902ce8"
+        },
+        "date": 1759850584542,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "auth_registry_contract-set_authorized_private",
+            "value": 812,
+            "unit": "acir_opcodes"
+          },
           {
             "name": "ecdsa_k_account_contract-constructor",
             "value": 6343,
