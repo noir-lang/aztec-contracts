@@ -64,7 +64,7 @@ for dir in "$CONTRACTS_DIR"/*/; do
 
     # For each function, extract and compute gates using bb; collect metrics
     for fn in $(echo "$FUNC_NAMES" | jq -r '.[]'); do
-      node "$ROOT_DIR/extractFunctionAsNoirArtifact.js" "$CONTRACTS_DIR/$A/target/$B_NO_EXT.json" "$fn"
+      "$ROOT_DIR/scripts/extractFunctionAsNoirArtifact.sh" "$CONTRACTS_DIR/$A/target/$B_NO_EXT.json" "$fn"
       if [[ -x "$HOME/.bb/bb" ]]; then
         GATES_OUTPUT=$("$HOME/.bb/bb" gates -b "$CONTRACTS_DIR/$A/target/${B_NO_EXT}-${fn}.json")
         echo "$GATES_OUTPUT" | jq -c --arg name "${A}-${fn}" '{name: $name, acir_opcodes: (.functions[0].acir_opcodes // 0), circuit_size: (.functions[0].circuit_size // 0)}' >> "$METRICS_TMP"
