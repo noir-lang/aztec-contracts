@@ -15,23 +15,9 @@ set -euo pipefail
 ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)  # repo root
 CONTRACTS_DIR="$ROOT_DIR/contract-benchmarks"  # benchmarks root
 
-if [[ ! -d "$CONTRACTS_DIR" ]]; then
-  echo "Directory not found: $CONTRACTS_DIR" >&2
-  exit 1
-fi
-
-# Require noir-inspector once up-front
-if ! command -v noir-inspector >/dev/null 2>&1; then
-  echo "Error: noir-inspector not found in PATH" >&2
-  exit 1
-fi
 
 # Resolve bb backend once up-front (env BACKEND can override)
 BACKEND_BIN=${BACKEND:-"$HOME/.bb/bb"}
-if [[ ! -x "$BACKEND_BIN" ]]; then
-  echo "Error: bb not found or not executable at $BACKEND_BIN" >&2
-  exit 1
-fi
 
 METRICS_TMP=$(mktemp)  # temp file for metrics
 trap 'rm -f "$METRICS_TMP"' EXIT  
@@ -40,18 +26,10 @@ for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
   [[ -d "$dir" ]] || continue
   CONTRACT_NAME=$(basename "$dir")
 
-  # Run nargo info inside the package directory if not found
-  if command -v nargo >/dev/null 2>&1; then
-    (cd "$dir" && nargo info)
-  else
-    echo "Warning: nargo not found in PATH; skipping 'nargo info' for $CONTRACT_NAME" >&2
-  fi
+  # Run nargo info inside the package directory
+  (cd "$dir" && nargo info)
 
   target_dir="$dir/target"
-  if [[ ! -d "$target_dir" ]]; then
-    echo "Target directory not found for $CONTRACT_NAME: $target_dir" >&2
-    continue
-  fi
 
   shopt -s nullglob 
   json_files=("$target_dir"/*.json)
@@ -59,11 +37,11 @@ for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
 
   if (( ${#json_files[@]} != 1 )); then
     echo "Expected exactly one JSON in $target_dir, found ${#json_files[@]}" >&2
-    continue
+    exit 1
   fi
 
   ARTIFACT_NAME=$(basename "${json_files[0]}")         # full artifact filename
-  ARTIFACT_NAME_NO_EXT="${ARTIFACT_NAME%.json}"                     # artifact name without .json
+  ARTIFACT_NAME_NO_EXT="${ARTIFACT_NAME%.json}"        # artifact name without .json
 
   # Discover functions to process from inspector output
   # Get function names with opcodes > 1 from constrained functions only
@@ -92,10 +70,7 @@ for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
 done
 
 # Build final reports
-if [[ -s "$METRICS_TMP" ]]; then
-  jq -s '[.[] | { name: .name, unit: "acir_opcodes", value: (.acir_opcodes // 0) }]' "$METRICS_TMP" > "$ROOT_DIR/opcodes-report.json"
-  jq -s '[.[] | { name: .name, unit: "circuit_size", value: (.circuit_size // 0) }]' "$METRICS_TMP" > "$ROOT_DIR/gates-report.json"
-  echo "Wrote $ROOT_DIR/opcodes-report.json and $ROOT_DIR/gates-report.json"
-else
-  echo "No metrics collected; not writing reports" >&2
+jq -s '[.[] | { name: .name, unit: "acir_opcodes", value: (.acir_opcodes // 0) }]' "$METRICS_TMP" > "$ROOT_DIR/opcodes-report.json"
+jq -s '[.[] | { name: .name, unit: "circuit_size", value: (.circuit_size // 0) }]' "$METRICS_TMP" > "$ROOT_DIR/gates-report.json"
+echo "Wrote $ROOT_DIR/opcodes-report.json and $ROOT_DIR/gates-report.json"
 fi
