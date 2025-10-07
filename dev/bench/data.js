@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1759851633481,
+  "lastUpdate": 1759851634436,
   "repoUrl": "https://github.com/noir-lang/aztec-contracts",
   "entries": {
     "ACIR Opcodes": [
@@ -1021,6 +1021,131 @@ window.BENCHMARK_DATA = {
           {
             "name": "private_token_contract-transfer",
             "value": 105293,
+            "unit": "circuit_size"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "committer": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "id": "37ec805d3d79da5fd8620fdfa9e7a252e4b44c03",
+          "message": "benchmark",
+          "timestamp": "2025-10-06T09:03:04Z",
+          "url": "https://github.com/noir-lang/aztec-contracts/pull/1/commits/37ec805d3d79da5fd8620fdfa9e7a252e4b44c03"
+        },
+        "date": 1759851634420,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "auth_registry_contract-set_authorized_private",
+            "value": 4330,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "ecdsa_k_account_contract-constructor",
+            "value": 29742,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "ecdsa_k_account_contract-entrypoint",
+            "value": 55222,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "ecdsa_k_account_contract-verify_private_authwit",
+            "value": 47042,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "private_token_contract-constructor",
+            "value": 23790,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "private_token_contract-mint",
+            "value": 22269,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "private_token_contract-transfer",
+            "value": 105293,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-_recurse_subtract_balance",
+            "value": 43764,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-burn_private",
+            "value": 104933,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-cancel_authwit",
+            "value": 3784,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-finalize_transfer_to_private_from_private",
+            "value": 113301,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-mint_to_private",
+            "value": 22506,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-prepare_private_balance_increase",
+            "value": 22420,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-private_get_decimals",
+            "value": 7705,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-private_get_name",
+            "value": 7704,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-private_get_symbol",
+            "value": 7704,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-transfer",
+            "value": 23518,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-transfer_in_private",
+            "value": 129415,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-transfer_to_private",
+            "value": 22506,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-transfer_to_public",
+            "value": 105013,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "token_contract-transfer_to_public_and_prepare_private_balance_increase",
+            "value": 128269,
             "unit": "circuit_size"
           }
         ]
