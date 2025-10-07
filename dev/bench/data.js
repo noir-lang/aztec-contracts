@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1759839976837,
+  "lastUpdate": 1759840322632,
   "repoUrl": "https://github.com/noir-lang/aztec-contracts",
   "entries": {
     "ACIR Opcodes": [
@@ -219,6 +219,56 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/noir-lang/aztec-contracts/pull/1/commits/0b743edec6382b5070f7733e3c32a79aa67fd4b3"
         },
         "date": 1759839975061,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ecdsa_k_account_contract-constructor",
+            "value": 6343,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "ecdsa_k_account_contract-entrypoint",
+            "value": 4127,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "ecdsa_k_account_contract-verify_private_authwit",
+            "value": 2222,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "private_token_contract-constructor",
+            "value": 5798,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "private_token_contract-mint",
+            "value": 5727,
+            "unit": "acir_opcodes"
+          },
+          {
+            "name": "private_token_contract-transfer",
+            "value": 21823,
+            "unit": "acir_opcodes"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "committer": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "id": "f16a90a18680fd0dc5e498d497eeac047a99a5af",
+          "message": "benchmark",
+          "timestamp": "2025-10-06T09:03:04Z",
+          "url": "https://github.com/noir-lang/aztec-contracts/pull/1/commits/f16a90a18680fd0dc5e498d497eeac047a99a5af"
+        },
+        "date": 1759840322231,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
