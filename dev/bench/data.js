@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1759839412104,
+  "lastUpdate": 1759839413141,
   "repoUrl": "https://github.com/noir-lang/aztec-contracts",
   "entries": {
     "ACIR Opcodes": [
@@ -150,6 +150,43 @@ window.BENCHMARK_DATA = {
             "name": "ecdsa_k_account_contract-verify_private_authwit",
             "value": 2222,
             "unit": "acir_opcodes"
+          }
+        ]
+      }
+    ],
+    "Circuit Size": [
+      {
+        "commit": {
+          "author": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "committer": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "id": "277dd2447a9ab3f388cba6a650bfaf1c3f563bb2",
+          "message": "benchmark",
+          "timestamp": "2025-10-06T09:03:04Z",
+          "url": "https://github.com/noir-lang/aztec-contracts/pull/1/commits/277dd2447a9ab3f388cba6a650bfaf1c3f563bb2"
+        },
+        "date": 1759839413111,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ecdsa_k_account_contract-constructor",
+            "value": 29742,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "ecdsa_k_account_contract-entrypoint",
+            "value": 55222,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "ecdsa_k_account_contract-verify_private_authwit",
+            "value": 47042,
+            "unit": "circuit_size"
           }
         ]
       }
