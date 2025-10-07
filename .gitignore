@@ -1,0 +1,11 @@
+# Ignore Noir build outputs in benchmarks
+contract-benchmarks/**/target/
+
+# Local reports and generated JSON artifacts
+opcodes.json
+gates-report.json
+opcodes-report.json
+names.json
+result.json
+final.json
+
