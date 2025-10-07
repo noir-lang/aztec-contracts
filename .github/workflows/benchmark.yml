@@ -24,10 +24,9 @@ jobs:
           curl -L https://raw.githubusercontent.com/AztecProtocol/aztec-packages/refs/heads/next/barretenberg/bbup/install | bash
           ~/.bb/bbup -nv 1.0.0-beta.12
           sudo apt install libc++-dev
+
       - name: Generate opcods and gates report
         run: ./scripts/build-reports.sh
-        env:
-          BACKEND: /home/runner/.bb/bb
 
       - name: Remove target directory
         run: rm -rf ./contract-benchmarks/**/target
