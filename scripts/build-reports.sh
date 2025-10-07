@@ -20,6 +20,19 @@ if [[ ! -d "$CONTRACTS_DIR" ]]; then
   exit 1
 fi
 
+# Require noir-inspector once up-front
+if ! command -v noir-inspector >/dev/null 2>&1; then
+  echo "Error: noir-inspector not found in PATH" >&2
+  exit 1
+fi
+
+# Resolve bb backend once up-front (env BACKEND can override)
+BACKEND_BIN=${BACKEND:-"$HOME/.bb/bb"}
+if [[ ! -x "$BACKEND_BIN" ]]; then
+  echo "Error: bb not found or not executable at $BACKEND_BIN" >&2
+  exit 1
+fi
+
 METRICS_TMP=$(mktemp)  # temp file for metrics
 trap 'rm -f "$METRICS_TMP"' EXIT  
 
@@ -53,39 +66,29 @@ for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
   ARTIFACT_NAME_NO_EXT="${ARTIFACT_NAME%.json}"                     # artifact name without .json
 
   # Discover functions to process from inspector output
+  # Get function names with opcodes > 1 from constrained functions only
+  FUNC_NAMES=$(noir-inspector info "$CONTRACTS_DIR/$CONTRACT_NAME/target/$ARTIFACT_NAME" --json \
+    | jq -c '(
+        (.programs // [])
+        | map(.functions // [])
+        | add // []
+        | map(select((.opcodes // 0) > 1) | .name)
+        | unique
+      )')
 
-  if command -v noir-inspector >/dev/null 2>&1; then
-    # Get function names with opcodes > 1 from constrained functions only
-    FUNC_NAMES=$(noir-inspector info "$CONTRACTS_DIR/$CONTRACT_NAME/target/$ARTIFACT_NAME" --json \
-      | jq -c '(
-          (.programs // [])
-          | map(.functions // [])
-          | add // []
-          | map(select((.opcodes // 0) > 1) | .name)
-          | unique
-        )')
-
-    # Ensure FUNC_NAMES is an array; default to [] if empty
-    if [[ -z "$FUNC_NAMES" || "$FUNC_NAMES" == "null" ]]; then
-      FUNC_NAMES="[]"
-    fi
-
-    # For each function, extract and compute gates using bb; collect counts
-    for fn in $(echo "$FUNC_NAMES" | jq -r '.[]'); do
-      # Create per-function Noir artifact ("...-<fn>.json")
-      "$ROOT_DIR/scripts/extractFunctionAsNoirArtifact.sh" "$CONTRACTS_DIR/$CONTRACT_NAME/target/$ARTIFACT_NAME_NO_EXT.json" "$fn"
-      if [[ -x "$HOME/.bb/bb" ]]; then
-        # Run gates on the per-function artifact and capture metrics
-        GATES_OUTPUT=$("$HOME/.bb/bb" gates -b "$CONTRACTS_DIR/$CONTRACT_NAME/target/${ARTIFACT_NAME_NO_EXT}-${fn}.json")
-        echo "$GATES_OUTPUT" | jq -c --arg name "${CONTRACT_NAME}-${fn}" '{name: $name, acir_opcodes: (.functions[0].acir_opcodes // 0), circuit_size: (.functions[0].circuit_size // 0)}' >> "$METRICS_TMP"
-      else
-        echo "Warning: $HOME/.bb/bb not found or not executable; skipping bb for $CONTRACT_NAME/$fn" >&2
-      fi
-    done
-  else
-    echo "Error: noir-inspector not found in PATH; cannot process $CONTRACT_NAME" >&2
-    exit 1
+  # Ensure FUNC_NAMES is an array; default to [] if empty
+  if [[ -z "$FUNC_NAMES" || "$FUNC_NAMES" == "null" ]]; then
+    FUNC_NAMES="[]"
   fi
+
+  # For each function, extract and compute gates using bb; collect counts
+  for fn in $(echo "$FUNC_NAMES" | jq -r '.[]'); do
+    # Create per-function Noir artifact ("...-<fn>.json")
+    "$ROOT_DIR/scripts/extractFunctionAsNoirArtifact.sh" "$CONTRACTS_DIR/$CONTRACT_NAME/target/$ARTIFACT_NAME_NO_EXT.json" "$fn"
+    # Run gates on the per-function artifact and capture metrics
+    GATES_OUTPUT=$("$BACKEND_BIN" gates -b "$CONTRACTS_DIR/$CONTRACT_NAME/target/${ARTIFACT_NAME_NO_EXT}-${fn}.json")
+    echo "$GATES_OUTPUT" | jq -c --arg name "${CONTRACT_NAME}-${fn}" '{name: $name, acir_opcodes: (.functions[0].acir_opcodes // 0), circuit_size: (.functions[0].circuit_size // 0)}' >> "$METRICS_TMP"
+  done
 done
 
 # Build final reports
