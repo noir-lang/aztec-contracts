@@ -29,6 +29,9 @@ jobs:
         env:
           BACKEND: /home/runner/.bb/bb
 
+      - name: Remove target directory
+        run: rm -rf ./contract-benchmarks/**/target
+
       - name: Store ACIR opcode benchmark result
         uses: benchmark-action/github-action-benchmark@v1
         with:
