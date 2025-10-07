@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1759840873142,
+  "lastUpdate": 1759840873974,
   "repoUrl": "https://github.com/noir-lang/aztec-contracts",
   "entries": {
     "ACIR Opcodes": [
@@ -506,6 +506,56 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/noir-lang/aztec-contracts/pull/1/commits/f16a90a18680fd0dc5e498d497eeac047a99a5af"
         },
         "date": 1759840323308,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "ecdsa_k_account_contract-constructor",
+            "value": 29742,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "ecdsa_k_account_contract-entrypoint",
+            "value": 55222,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "ecdsa_k_account_contract-verify_private_authwit",
+            "value": 47042,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "private_token_contract-constructor",
+            "value": 23790,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "private_token_contract-mint",
+            "value": 22269,
+            "unit": "circuit_size"
+          },
+          {
+            "name": "private_token_contract-transfer",
+            "value": 105293,
+            "unit": "circuit_size"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "committer": {
+            "name": "noir-lang",
+            "username": "noir-lang"
+          },
+          "id": "3e30ac11d3eafcc141428feb043b58eea39b0b4e",
+          "message": "benchmark",
+          "timestamp": "2025-10-06T09:03:04Z",
+          "url": "https://github.com/noir-lang/aztec-contracts/pull/1/commits/3e30ac11d3eafcc141428feb043b58eea39b0b4e"
+        },
+        "date": 1759840873960,
         "tool": "customSmallerIsBetter",
         "benches": [
           {
