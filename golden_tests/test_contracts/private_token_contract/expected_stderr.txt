@@ -1,0 +1,75 @@
+warning: unused variable owner
+   ┌─ src/main.nr:44:34
+   │
+44 │     unconstrained fn get_balance(owner: AztecAddress) -> Field {
+   │                                  ----- unused variable
+   │
+
+warning: struct `Storage` is never constructed
+   ┌─ src/main.nr:10:12
+   │
+10 │     struct Storage<Context> {
+   │            ------- struct is never constructed
+   │
+
+error: Type fn(TypeDefinition) -> Quoted has no member named balances
+   ┌─ src/main.nr:20:32
+   │
+20 │         let balances = storage.balances;
+   │                                --------
+   │
+
+error: Object type is unknown in method call
+   ┌─ src/main.nr:22:9
+   │
+22 │         balances.at(owner).add(initial_supply, owner);
+   │         -------- Type must be known by this point to know which method to call
+   │
+   = Try adding a type annotation for the object type before this method call
+
+error: Type fn(TypeDefinition) -> Quoted has no member named balances
+   ┌─ src/main.nr:28:32
+   │
+28 │         let balances = storage.balances;
+   │                                --------
+   │
+
+error: Object type is unknown in method call
+   ┌─ src/main.nr:30:9
+   │
+30 │         balances.at(owner).add(amount, owner);
+   │         -------- Type must be known by this point to know which method to call
+   │
+   = Try adding a type annotation for the object type before this method call
+
+error: Type fn(TypeDefinition) -> Quoted has no member named balances
+   ┌─ src/main.nr:36:32
+   │
+36 │         let balances = storage.balances;
+   │                                --------
+   │
+
+error: Object type is unknown in method call
+   ┌─ src/main.nr:38:9
+   │
+38 │         balances.at(sender).sub(amount, sender);
+   │         -------- Type must be known by this point to know which method to call
+   │
+   = Try adding a type annotation for the object type before this method call
+
+error: Object type is unknown in method call
+   ┌─ src/main.nr:39:9
+   │
+39 │         balances.at(recipient).add(amount, recipient);
+   │         -------- Type must be known by this point to know which method to call
+   │
+   = Try adding a type annotation for the object type before this method call
+
+error: Type fn(TypeDefinition) -> Quoted has no member named balances
+   ┌─ src/main.nr:45:17
+   │
+45 │         storage.balances.at(owner).get_value()
+   │                 --------
+   │
+
+Aborting due to 8 previous errors
