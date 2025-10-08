@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Builds two benchmark reports for all benchmarked contracts:
+# - opcodes-report.json: ACIR opcode counts per function
+# - gates-report.json: circuit size (gates) per function
+#
+# For each subdirectory under contract-benchmarks:
+# 1) Run `nargo info` to generate target.
+# 2) Finds the single compiled Noir artifact JSON under "target/".
+# 3) Uses noir-inspector to list functions and filters those constrained functionswith opcodes > 1.
+# 4) Extracts each function into its own Noir artifact.
+# 5) Runs bb gates on the per-function artifact and collects metrics.
+
+ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)  # repo root
+CONTRACTS_DIR="$ROOT_DIR/contract-benchmarks"  # benchmarks root
+
+
+# Resolve bb backend once up-front (env BACKEND can override)
+BACKEND_BIN=${BACKEND:-"$HOME/.bb/bb"}
+
+METRICS_TMP=$(mktemp)  # temp file for metrics
+trap 'rm -f "$METRICS_TMP"' EXIT  
+
+for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
+  [[ -d "$dir" ]] || continue
+  CONTRACT_NAME=$(basename "$dir")
+
+  # Run nargo info inside the package directory
+  (cd "$dir" && nargo info)
+
+  target_dir="$dir/target"
+
+  shopt -s nullglob 
+  json_files=("$target_dir"/*.json)
+  shopt -u nullglob
+
+  if (( ${#json_files[@]} != 1 )); then
+    echo "Expected exactly one JSON in $target_dir, found ${#json_files[@]}" >&2
+    exit 1
+  fi
+
+  ARTIFACT_NAME=$(basename "${json_files[0]}")         # full artifact filename
+  ARTIFACT_NAME_NO_EXT="${ARTIFACT_NAME%.json}"        # artifact name without .json
+
+  # Discover functions to process from inspector output
+  # Get function names with opcodes > 1 from constrained functions only
+  FUNC_NAMES=$(noir-inspector info "$CONTRACTS_DIR/$CONTRACT_NAME/target/$ARTIFACT_NAME" --json \
+    | jq -c '(
+        (.programs // [])
+        | map(.functions // [])
+        | add // []
+        | map(select((.opcodes // 0) > 1) | .name)
+        | unique
+      )')
+
+  # Ensure FUNC_NAMES is an array; default to [] if empty
+  if [[ -z "$FUNC_NAMES" || "$FUNC_NAMES" == "null" ]]; then
+    FUNC_NAMES="[]"
+  fi
+
+  # For each function, extract and compute gates using bb; collect counts
+  for fn in $(echo "$FUNC_NAMES" | jq -r '.[]'); do
+    # Create per-function Noir artifact ("...-<fn>.json")
+    "$ROOT_DIR/scripts/extractFunctionAsNoirArtifact.sh" "$CONTRACTS_DIR/$CONTRACT_NAME/target/$ARTIFACT_NAME_NO_EXT.json" "$fn"
+    # Run gates on the per-function artifact and capture metrics
+    GATES_OUTPUT=$("$BACKEND_BIN" gates -b "$CONTRACTS_DIR/$CONTRACT_NAME/target/${ARTIFACT_NAME_NO_EXT}-${fn}.json")
+    echo "$GATES_OUTPUT" | jq -c --arg name "${CONTRACT_NAME}-${fn}" '{name: $name, acir_opcodes: (.functions[0].acir_opcodes // 0), circuit_size: (.functions[0].circuit_size // 0)}' >> "$METRICS_TMP"
+  done
+done
+
+# Build final reports
+jq -s '[.[] | { name: .name, unit: "acir_opcodes", value: (.acir_opcodes // 0) }]' "$METRICS_TMP" > "$ROOT_DIR/opcodes-report.json"
+jq -s '[.[] | { name: .name, unit: "circuit_size", value: (.circuit_size // 0) }]' "$METRICS_TMP" > "$ROOT_DIR/gates-report.json"
+echo "Wrote $ROOT_DIR/opcodes-report.json and $ROOT_DIR/gates-report.json"
