@@ -73,4 +73,3 @@ done
 jq -s '[.[] | { name: .name, unit: "acir_opcodes", value: (.acir_opcodes // 0) }]' "$METRICS_TMP" > "$ROOT_DIR/opcodes-report.json"
 jq -s '[.[] | { name: .name, unit: "circuit_size", value: (.circuit_size // 0) }]' "$METRICS_TMP" > "$ROOT_DIR/gates-report.json"
 echo "Wrote $ROOT_DIR/opcodes-report.json and $ROOT_DIR/gates-report.json"
-fi
