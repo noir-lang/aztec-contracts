@@ -64,4 +64,5 @@ jobs:
           max-items-in-chart: 50
           skip-fetch-gh-pages: true
 
-
+      - name: Run golden tests
+        run: ./scripts/test.sh
