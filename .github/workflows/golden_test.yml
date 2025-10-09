@@ -18,5 +18,8 @@ jobs:
         with:
           toolchain: 1.0.0-beta.13
 
+      - name: Compile correct private_token_contract
+        working-directory: ./contract-benchmarks/private_token_contract
+        run: nargo compile
       - name: Run golden tests
         run: ./scripts/test.sh
