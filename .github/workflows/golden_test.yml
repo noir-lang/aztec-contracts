@@ -11,8 +11,6 @@ jobs:
     name: Golden Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout sources
-        uses: actions/checkout@v4
 
       - name: Install Nargo
         uses: noir-lang/noirup@v0.1.4
