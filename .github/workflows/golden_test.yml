@@ -19,6 +19,5 @@ jobs:
         with:
           toolchain: 1.0.0-beta.13
 
-
       - name: Run golden tests
         run: ./scripts/test.sh
