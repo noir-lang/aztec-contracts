@@ -1,5 +1,5 @@
 error: Type `Arbitrary` is more private than item `mint_parameters::amount`
-   ┌─ /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/abi_export.nr:42:9
+   ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/abi_export.nr:42:9
    │
 42 │         f.parameters().map(|(name, typ): (Quoted, Type)| quote { pub $name: $typ }).join(quote {,});
    │         --------------
@@ -11,7 +11,7 @@ error: Type `Arbitrary` is more private than item `mint_parameters::amount`
    │
 
 error: Type `Arbitrary` is more private than item `mint`
-   ┌─ /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/call_interface_stubs.nr:42:19
+   ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/call_interface_stubs.nr:42:19
    │
 42 │     let fn_name = f.name();
    │                   --------

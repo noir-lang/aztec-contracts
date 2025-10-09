@@ -20,46 +20,46 @@ error: Function get_balance must be marked as either #[private], #[public], #[ut
   │
   = Call stack:
     1. src/main.nr:4:1
-    2. /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/aztec.nr:17:5
-    3. /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:463:13
+    2. /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/aztec.nr:17:5
+    3. /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:463:13
 
 error: cannot find `_compute_note_hash_and_nullifier` in this scope
-    ┌─ /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
     │
 368 │                 _compute_note_hash_and_nullifier,
     │                 -------------------------------- not found in this scope
     │
 
 error: Type annotation needed
-    ┌─ /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
     │
 366 │             dep::aztec::messages::discovery::discover_new_messages(
     │                                              --------------------- Could not determine the type of the generic argument `Env` declared on the function `discover_new_messages`
     │
 
 error: cannot find `_compute_note_hash_and_nullifier` in this scope
-    ┌─ /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
     │
 368 │                 _compute_note_hash_and_nullifier,
     │                 -------------------------------- not found in this scope
     │
 
 error: Type annotation needed
-    ┌─ /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
     │
 366 │             dep::aztec::messages::discovery::discover_new_messages(
     │                                              --------------------- Could not determine the type of the generic argument `Env` declared on the function `discover_new_messages`
     │
 
 error: cannot find `_compute_note_hash_and_nullifier` in this scope
-    ┌─ /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
     │
 368 │                 _compute_note_hash_and_nullifier,
     │                 -------------------------------- not found in this scope
     │
 
 error: Type annotation needed
-    ┌─ /home/runner/nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
     │
 366 │             dep::aztec::messages::discovery::discover_new_messages(
     │                                              --------------------- Could not determine the type of the generic argument `Env` declared on the function `discover_new_messages`
