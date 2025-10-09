@@ -1,6 +1,6 @@
 # Ignore Noir build outputs in benchmarks
 contract-benchmarks/**/target/
-golden_tests/test_contracts/**/result.txt
+est_contracts/**/result.txt
 
 
 # Local reports

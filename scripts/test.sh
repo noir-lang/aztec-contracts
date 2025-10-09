@@ -1,5 +1,5 @@
 ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)  # repo root
-CONTRACTS_DIR="$ROOT_DIR/golden_tests/test_contracts"  # error contracts root
+CONTRACTS_DIR="$ROOT_DIR/test_contracts"  # error contracts root
 
 
 for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
