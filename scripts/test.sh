@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
 ROOT_DIR=$(cd "$(dirname "$0")/.." && pwd)  # repo root
 CONTRACTS_DIR="$ROOT_DIR/golden_tests/test_contracts"  # error contracts root
 
