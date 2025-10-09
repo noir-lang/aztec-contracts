@@ -2,7 +2,6 @@
 contract-benchmarks/**/target/
 test_contracts/**/result.txt
 
-
 # Local reports
 gates-report.json
 opcodes-report.json
