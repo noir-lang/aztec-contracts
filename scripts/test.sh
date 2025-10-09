@@ -19,7 +19,16 @@ for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
     expected_for_comparison="$expected_output_file"
   fi
   
-  diff "$expected_for_comparison" "$result_file" && echo "Files are identical" || echo "Files differ"
+  if diff "$expected_for_comparison" "$result_file" >/dev/null; then
+    echo "$CONTRACT_NAME: Files are identical"
+  else
+    echo "$CONTRACT_NAME: Files differ"
+    echo "Differences:"
+    diff "$expected_for_comparison" "$result_file"
+    # Clean up temporary file before exiting
+    [[ -f "$expected_output_file.temp" ]] && rm -f "$expected_output_file.temp"
+    exit 1
+  fi
   
   # Clean up temporary file if created
   [[ -f "$expected_output_file.temp" ]] && rm -f "$expected_output_file.temp"
