@@ -52,7 +52,40 @@ fn mint(amount: Arbitrary, owner: AztecAddress) {
 
 **Purpose**: The reason we see this error is function arguments need to be serialized. We need to define Serialize/Deserialize trait implementation for the new struct,
 
-#### 3. `private_token_contract_utility_macro` - Missing `#[utility]` Attribute
+#### 3. `private_token_contract_private_struct` - Private Struct in Function
+
+**Modification**: Added a private struct `Arbitrary` and used it as a function parameter in a `#[private]` function.
+
+**Original Code**:
+```rust
+#[private]
+fn mint(amount: u64, owner: AztecAddress) {
+    let balances = storage.balances;
+    balances.at(owner).add(amount, owner);
+}
+```
+
+**Modified Code**:
+```rust
+#[derive(Serialize, Deserialize)]
+struct Arbitrary {
+    value: u64,
+}
+
+#[private]
+fn mint(amount: Arbitrary, owner: AztecAddress) {
+    //let balances = storage.balances;
+    //balances.at(owner).add(amount, owner);
+}
+```
+
+**Expected Errors**:
+- `Type Arbitrary is more private than item mint_parameters::amount` 
+- `Type Arbitrary is more private than item mint`
+
+**Purpose**: It might be confusing to see mint function labelled as #[private], but got error `Type Arbitrary is more private than item mint`
+
+#### 4. `private_token_contract_utility_macro` - Missing `#[utility]` Attribute
 
 **Modification**: Removed the `#[utility]` attribute from the `get_balance` function.
 
@@ -63,6 +96,7 @@ unconstrained fn get_balance(owner: AztecAddress) -> Field {
     storage.balances.at(owner).get_value()
 }
 ```
+
 
 **Modified Code**:
 ```rust
