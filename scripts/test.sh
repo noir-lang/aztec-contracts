@@ -8,7 +8,7 @@ for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
   expected_output_file="$CONTRACTS_DIR/${CONTRACT_NAME}/expected_stderr.txt"
   result_file="$CONTRACTS_DIR/${CONTRACT_NAME}/result.txt"
   
-  cd "$dir" && nargo info && nargo compile 2> "$result_file" || true
+  cd "$dir" && nargo compile 2> "$result_file" || true
   
   # replace /home/runner paths with local paths if running locally
   if [[ "${CI:-}" != "true" ]]; then
