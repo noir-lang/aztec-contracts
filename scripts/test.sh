@@ -11,7 +11,11 @@ for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
   cd "$dir" && nargo compile 2> "$result_file" || true
   
   # Remove paths before /nargo/github.com to avoid environment dependency.
-  sed -i "" "s@[^[:space:]]*/nargo/github\.com@/nargo/github.com@g" "$result_file"
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i "" "s@[^[:space:]]*/nargo/github\.com@/nargo/github.com@g" "$result_file"
+  else
+    sed -i "s@[^[:space:]]*/nargo/github\.com@/nargo/github.com@g" "$result_file"
+  fi
   
   if diff "$expected_output_file" "$result_file"; then
     echo "$CONTRACT_NAME: Files are identical"
