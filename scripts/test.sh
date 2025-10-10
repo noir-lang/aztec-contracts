@@ -10,10 +10,8 @@ for dir in "$CONTRACTS_DIR"/*/; do  # iterate over each contract
   
   cd "$dir" && nargo compile 2> "$result_file" || true
   
-  # Remove $HOME and /home/runner paths from result file to avoid environment dependency.
-  GLOBAL_HOME="/home/runner"
-  sed -i "" "s@${HOME}@@g" "$result_file"
-  sed -i "" "s@${GLOBAL_HOME}@@g" "$result_file"
+  # Remove paths before /nargo/github.com to avoid environment dependency.
+  sed -i "" "s@[^[:space:]]*/nargo/github\.com@/nargo/github.com@g" "$result_file"
   
   if diff "$expected_output_file" "$result_file"; then
     echo "$CONTRACT_NAME: Files are identical"
