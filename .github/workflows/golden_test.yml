@@ -1,0 +1,25 @@
+name: Golden Tests
+
+on:
+  push:
+   branches:
+    - master
+  pull_request:
+
+jobs:
+  test:
+    name: Golden Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Install Nargo
+        uses: noir-lang/noirup@v0.1.4
+        with:
+          toolchain: 1.0.0-beta.13
+
+      - name: Compile correct private_token_contract
+        working-directory: ./contract-benchmarks/private_token_contract
+        run: nargo compile
+      - name: Run golden tests
+        run: ./scripts/test.sh

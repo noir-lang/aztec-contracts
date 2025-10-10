@@ -1,5 +1,6 @@
 # Ignore Noir build outputs in benchmarks
 contract-benchmarks/**/target/
+test_contracts/**/result.txt
 
 # Local reports
 gates-report.json

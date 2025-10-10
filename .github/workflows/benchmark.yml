@@ -17,7 +17,7 @@ jobs:
       - name: Install Nargo
         uses: noir-lang/noirup@v0.1.4
         with:
-          toolchain: 1.0.0-beta.12
+          toolchain: 1.0.0-beta.13
 
       - name: Install bb
         run: |
@@ -63,5 +63,3 @@ jobs:
           fail-on-alert: false 
           max-items-in-chart: 50
           skip-fetch-gh-pages: true
-
-

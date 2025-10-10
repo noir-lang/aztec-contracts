@@ -1,0 +1,27 @@
+error: No matching impl found for `Arbitrary: Serialize<N = _>`
+   ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/utils.nr:99:36
+   │
+99 │             let $serialized_name = aztec::protocol_types::traits::Serialize::serialize($name);
+   │                                    --------------------------------------------------- No impl for `Arbitrary: Serialize<N = _>`
+   │
+   ┌─ src/main.nr:4:1
+   │
+ 4 │ #[aztec]
+   │ -------- While running this function attribute
+   │
+
+error: No matching impl found for `Arbitrary: Serialize<N = _>`
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/utils.nr:137:43
+    │
+137 │         quote { $hasher_name.add_multiple(dep::aztec::protocol_types::traits::Serialize::serialize($name)); }
+    │                                           -------------------------------------------------------- No impl for `Arbitrary: Serialize<N = _>`
+    │
+
+error: Type annotation needed
+   ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:38:36
+   │
+38 │     let args_hasher_name = quote { args_hasher };
+   │                                    ----------- Could not determine the value of the generic argument `N` declared on the function `add_multiple`
+   │
+
+Aborting due to 3 previous errors

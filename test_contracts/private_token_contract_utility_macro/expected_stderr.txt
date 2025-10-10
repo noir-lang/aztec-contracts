@@ -1,0 +1,83 @@
+warning: unused variable owner
+   ┌─ src/main.nr:44:34
+   │
+44 │     unconstrained fn get_balance(owner: AztecAddress) -> Field {
+   │                                  ----- unused variable
+   │
+
+warning: unused import utility
+  ┌─ src/main.nr:6:64
+  │
+6 │     use dep::aztec::macros::{functions::{initializer, private, utility}, storage::storage};
+  │                                                                ------- unused import
+  │
+
+error: Function get_balance must be marked as either #[private], #[public], #[utility], #[contract_library_method], or #[test]
+  ┌─ std/panic.nr:2:12
+  │
+2 │     assert(false, message);
+  │            ----- Assertion failed
+  │
+  = Call stack:
+    1. src/main.nr:4:1
+    2. /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/aztec.nr:17:5
+    3. /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:463:13
+
+error: cannot find `_compute_note_hash_and_nullifier` in this scope
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
+    │
+368 │                 _compute_note_hash_and_nullifier,
+    │                 -------------------------------- not found in this scope
+    │
+
+error: Type annotation needed
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
+    │
+366 │             dep::aztec::messages::discovery::discover_new_messages(
+    │                                              --------------------- Could not determine the type of the generic argument `Env` declared on the function `discover_new_messages`
+    │
+
+error: cannot find `_compute_note_hash_and_nullifier` in this scope
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
+    │
+368 │                 _compute_note_hash_and_nullifier,
+    │                 -------------------------------- not found in this scope
+    │
+
+error: Type annotation needed
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
+    │
+366 │             dep::aztec::messages::discovery::discover_new_messages(
+    │                                              --------------------- Could not determine the type of the generic argument `Env` declared on the function `discover_new_messages`
+    │
+
+error: cannot find `_compute_note_hash_and_nullifier` in this scope
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:368:17
+    │
+368 │                 _compute_note_hash_and_nullifier,
+    │                 -------------------------------- not found in this scope
+    │
+
+error: Type annotation needed
+    ┌─ /nargo/github.com/aztecprotocol/aztec-packages/v3.0.0-nightly.20250922/noir-projects/aztec-nr/aztec/src/macros/functions/utils.nr:366:46
+    │
+366 │             dep::aztec::messages::discovery::discover_new_messages(
+    │                                              --------------------- Could not determine the type of the generic argument `Env` declared on the function `discover_new_messages`
+    │
+
+error: missing pub keyword on return type of function get_balance
+   ┌─ src/main.nr:44:22
+   │
+44 │     unconstrained fn get_balance(owner: AztecAddress) -> Field {
+   │                      ----------- missing pub on return type
+   │
+   = The `pub` keyword is mandatory for the entry-point function return type because the verifier cannot retrieve private witness and thus the function will not be able to return a 'priv' value
+
+error: Type fn(TypeDefinition) -> Quoted has no member named balances
+   ┌─ src/main.nr:45:17
+   │
+45 │         storage.balances.at(owner).get_value()
+   │                 --------
+   │
+
+Aborting due to 9 previous errors
